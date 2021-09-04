@@ -1,32 +1,27 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {observer} from 'mobx-react';
+import CounterStore from '../store/counterStore';
 
+@observer
 class Counter extends React.Component {
-  handleIncrement = index => {
-    this.props.handleIncrement(index);
-  };
-
-  handleDecrement = index => {
-    this.props.handleDecrement(index);
-  };
-
   render() {
     const {index, value} = this.props;
     return (
       <View index={value.toString()} style={styles.counterContainer}>
         <Text style={styles.counterInfo}>
-          Count: {value.counterNum.toString()}
+          Count: {CounterStore.counter[index].counterNum}
         </Text>
         <View style={styles.counterBtnContainer}>
           <TouchableOpacity
             style={styles.counterButton}
-            onPress={() => this.handleIncrement({index})}>
-            <Text>INCREMENT</Text>
+            onPress={() => CounterStore.handleIncrement({index})}>
+            <Text style={{color: '#4C4C4C'}}>INCREMENT</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.counterButton}
-            onPress={() => this.handleDecrement({index})}>
-            <Text>DECREMENT</Text>
+            onPress={() => CounterStore.handleDecrement({index})}>
+            <Text style={{color: '#4C4C4C'}}>DECREMENT</Text>
           </TouchableOpacity>
         </View>
       </View>
